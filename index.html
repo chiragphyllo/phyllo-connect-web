@@ -5,7 +5,9 @@
         <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/static/style.css"  />
-    <script type="text/javascript" src="https://cdn.getphyllo.com/connect/v1/connect-initialize.js"></script>
+    <!-- <script type="text/javascript" src="https://cdn.getphyllo.com/connect/v1/connect-initialize.js"></script> -->
+    <script type="text/javascript" src="./dist/connect/v1/connect-initialize.js"></script>
+    <script type="text/javascript" src=""></script>
     <script type="text/javascript" src="./dist/phylloAPIHelper.js"></script>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
@@ -20,6 +22,7 @@
            const userId = await createUser("DigiQT",timeStamp.getTime(),isExistingUser);
            const token = await createUserToken(userId,"https://connect-sandbox.getphyllo.com/status/");
           const appName = "DigiQT";
+          debugger;
          console.log(PhylloConnectSDK.clientConnect);
           const phylloConnectURL =  await PhylloConnectSDK.clientConnect(
             env,
@@ -28,7 +31,20 @@
             appName,
             workPlatformId
           );
-          window.location.href =phylloConnectURL;
+          
+          const obj = {
+            env,
+            userId,
+            token,
+            appName
+          }
+          
+
+          const phylloConnectURL2 =  await PhylloConnectSDK.connect(obj);
+
+          console.log(phylloConnectURL);
+          console.log(phylloConnectURL2);
+          window.location.href = phylloConnectURL
         } catch (err) {
           console.log(err);
         }
@@ -54,3 +70,5 @@
     </div>
   </body>
 </html>
+
+
